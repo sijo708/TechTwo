@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>App Name: A Coding Challenge</title>
+    <title>Tech Two: A Coding Challenge</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,7 +30,7 @@
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
                     <img src="img/S_Logo.png" height="40" />
-                    App Name
+                    Tech Two
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -50,7 +50,7 @@
                         </li>
                         <li class="nav-item">
                             <!--Change Me-->
-                            <a class="nav-link" href="#">The Repo</a>
+                            <a class="nav-link" href="https://github.com/sijo708/TechTwo">The Repo</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="https://sensational-griffin-35a826.netlify.app/">Portfolio</a>
@@ -68,9 +68,42 @@
     </header>
 
     <main class="container py-3">
-        <h1>App UI goes here!</h1>
-        <input id="message" type="text" placeholder="Enter a Message"/>
-        <button id="btnSubmit" class="btn btn-primary">Display Message</button>        
+        <div class="row">
+            <div class="row row-cols-1 row-cols-md-2">
+                <div class="col">
+                    <h1 class="border-bottom pb-2">
+                        <b>Tech Two</b>: A Coding Challenge
+                    </h1>
+                    <p>
+                        Tech Two is a palindrome checker. This coding challenge uses
+                    JavaScript to check if the word, pharse, or sequence that reads the same backward as forward.
+                    </p>
+                    <h2 class="border-bottom pb-2">Instructions</h2>
+                    <p>
+                        Enter a pharse or word to check
+                        <span class="fw-bold text-success">Palindrome</span>!
+                    </p>
+                </div>
+                <div class="col">
+                    <h2 class="border-bottom pb-2">Enter a pharse or word to check</h2>
+                    <form class="hstack gap-2">
+                        <input type="text" class="form-control" id="message" placeholder="Enter a pharse to check..." />
+                        <button class="btn btn-primary text-nowrap" type="button" id="btnSubmit">
+                            Check It!
+                        </button>
+                    </form>
+                    <div class="my-3">
+                        <div class="alert alert-success fade show invisible" id="alert">
+                            <h4 class="alert-heading">Well done! You entered a Palindrome</h4>
+                            <hr />
+                            <p id="result">
+                                <!--Results Here -->
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>               
     </main>
 
     <footer class="container-fluid py-3">
@@ -110,7 +143,7 @@
 
     <script>
         let button = document.getElementById('btnSubmit');
-        button.addEventListener('click', displayMessage)
+        button.addEventListener('click', getValues)
     </script>
 </body>
 
