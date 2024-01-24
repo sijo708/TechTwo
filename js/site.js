@@ -39,18 +39,23 @@ function checkForPalindrome(userMessage) {
 }
 
 function displayResults(stringObject) {
-    let alertBox = document.getElementById('alert');
-    alertBox.classList.remove('invisible');
+    // get a copy of the template
+    let template;
 
     if (stringObject.reversedInput == 'is') {
-        // Display success message
-        alertBox.classList.replace("alert-danger", "alert-success");
-        alertBox.innerHTML = `<div><h4>Well done! You entered a Palindrome!</h4>This is a palindrome! <span class="fw-bold" id="results"></span></div>`;
-        document.getElementById('results').textContent = stringObject.input;
+        // -if it is a palindrome, select the success template
+        template = document.getElementById('success-template')
     } else {
-        // Display error message
-        alertBox.classList.replace("alert-success", "alert-danger");
-        alertBox.innerHTML = `<div><h4>Oh no!</h4>This is not a palindrome! <span class="fw-bold" id="results"></span></div>`;
-        document.getElementById('results').textContent = stringObject.input;
-    }    
+        // -if it is not a palindrome, select the danger template
+        template = document.getElementById('danger-template')
+    }
+    
+    let templateCopy = template.content.cloneNode(true);
+    // put the orginal message in he <p class="input-message">
+    templateCopy.querySelector('.input-message').textContent = `You enterd: ${stringObject.input}`;
+    // put the reversed message in he <p class="reversed-message">
+    templateCopy.querySelector('.reversed-message').textContent = `Your message reveresd is: ${stringObject.input.split('').reverse().join('')}`;
+
+    // add our copy of the template to the div with ID "results"
+    document.getElementById('results').prepend(templateCopy);
 }
