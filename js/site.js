@@ -52,5 +52,5 @@ function displayResults(stringObject) {
         alertBox.classList.replace("alert-success", "alert-danger");
         alertBox.innerHTML = `<div><h4>Oh no!</h4>This is not a palindrome! <span class="fw-bold" id="results"></span></div>`;
         document.getElementById('results').textContent = stringObject.input;
-    }
+    }    
 }

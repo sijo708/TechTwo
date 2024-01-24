@@ -74,31 +74,75 @@
         <h1 class="border-bottom border-dark">The Code</h1>
         <div class="row">
             <!--the JavaScript code-->
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-8">
                 <pre class="line-numbers">
                     <code class="language-js">
-                        function displayMessage(){
-                            let inputBox = document.getElementById('message');
-                            let message = inputBox.value;
-                        
-                            Swal.fire(
-                                {
-                                    backdrop: false,
-                                    title: 'App Name',
-                                    text: message
-                                }
-                            );
-                        }
-                    </code>>
+                        function getValues() {
+    let userMessage = document.getElementById('message').value;
+
+    if (userMessage.length < 2) {
+        Swal.fire({
+            icon: 'error',
+            backdrop: false,
+            title: 'Oops',
+            text: 'Please enter at least 2 characters to check for palindrome.'
+        });
+
+        return;
+    }
+
+    // send the input to be checked if it is a palindrome
+    let isPalindrome = checkForPalindrome(userMessage);
+
+    // send results to be displayed
+    let reversedInput;
+    if (isPalindrome) {
+        reversedInput = 'is';
+    } else {
+        reversedInput = 'is not';
+    }
+
+    let stringObject = {
+        input: userMessage,
+        reversedInput: reversedInput
+    };
+
+    displayResults(stringObject);
+}
+
+function checkForPalindrome(userMessage) {
+    let string = userMessage.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+    let reversedString = string.split('').reverse().join('');
+
+    return string == reversedString;
+}
+
+function displayResults(stringObject) {
+    let alertBox = document.getElementById('alert');
+    alertBox.classList.remove('invisible');
+
+    if (stringObject.reversedInput == 'is') {
+        // Display success message
+        alertBox.classList.replace("alert-danger", "alert-success");
+        alertBox.innerHTML = `&lt;div>&lt;h4>Well done! You entered a Palindrome!</h4>This is a palindrome! &lt;span class="fw-bold" id="results">&lt;/span>&lt;/div>`;
+        document.getElementById('results').textContent = stringObject.input;
+    } else {
+        // Display error message
+        alertBox.classList.replace("alert-success", "alert-danger");
+        alertBox.innerHTML = `&lt;div>&lt;h4>Oh no!</h4>This is not a palindrome! &lt;span class="fw-bold" id="results">&lt;/span>&lt;/div>`;
+        document.getElementById('results').textContent = stringObject.input;
+    }    
+}
+                    </code>
                 </pre>
             </div>
 
             <!-- The code's explanation -->
             <div class="col-12 col-lg-4">
-                <p>The code is structured in one function</p>
+                <p>The code is structured in 3 functions</p>
                 <h5><code>displayMessage()</code></h5>
                 <p>
-                    The <code>displayMessage</code> function gets the 
+                    The <code>getValues</code> function gets the 
                     text from the input element and displays it in a 
                     Sweet Alert popup.
                 </p>
