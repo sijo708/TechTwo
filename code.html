@@ -33,7 +33,7 @@
             <div class="container">
                 <a class="navbar-brand" href="/index.html">
                     <img src="img/S_Logo.png" height="40" />
-                    App Name
+                    Tech Two
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -53,14 +53,14 @@
                         </li>
                         <li class="nav-item">
                             <!--Change Me-->
-                            <a class="nav-link" href="#">The Repo</a>
+                            <a class="nav-link" href="https://github.com/sijo708/TechTwo">The Repo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://sensational-griffin-35a826.netlify.app/">Portfolio</a>
+                            <a class="nav-link" href="https://sijosajan.com/">Portfolio</a>
                         </li>
                         <li class="nav-item">
                             <!--Change Me-->
-                            <a class="nav-link" href="#">Blog</a>
+                            <a class="nav-link" href="https://myblog-production-9fdb.up.railway.app/">Blog</a>
                         </li>
 
                     </ul>
@@ -80,25 +80,33 @@
                         function getValues() {
                             let userMessage = document.getElementById('message').value;
                         
-                            if (userMessage.length < 2) {
+                            // Process the input to remove non-alphanumeric characters and convert to lowercase
+                            let processedMessage = userMessage.toLowerCase().replace(/[^a-z0-9]/gi, '');
+                        
+                            // Check if the processed message is less than 2 characters
+                            if (processedMessage.length < 2) {
                                 Swal.fire({
                                     icon: 'error',
                                     backdrop: false,
                                     title: 'Oops',
-                                    text: 'Please enter at least 2 characters to check for palindrome.'
+                                    text: 'Please enter at least 2 alphanumeric characters to check for palindrome.'
                                 });
                         
                                 return;
                             } else {
-                                let isPalindrome = checkForPalindrome(userMessage);
+                                // Check if the processed message is a palindrome
+                                let isPalindrome = checkForPalindrome(processedMessage);
+                                // Reverse the original user message for display
                                 let userMessageReversed = reverseString(userMessage);
                         
+                                // Create an object with the original and reversed messages and the palindrome result
                                 let results = {
                                     input: userMessage,
                                     reversed: userMessageReversed,
                                     isPalindrome: isPalindrome
                                 };
                         
+                                // Display the results
                                 displayResults(results);
                             }
                         }
@@ -108,57 +116,77 @@
                             alert.classList.remove('invisible', 'alert-success', 'alert-danger');
                         
                             if (results.isPalindrome == true) {
-                                // make the alert green
+                                // Make the alert green for success
                                 alert.classList.add('alert-success');
-                                // make the header say success
                                 alert.querySelector('h4').innerHTML = 'Well Done! You entered a palindrome';
                             } else {
+                                // Make the alert red for failure
                                 alert.classList.add('alert-danger');
                                 alert.querySelector('h4').innerHTML = 'Oh No! That is not a palindrome';
                             }
                         
-                            // display the input & reverse in the body
-                            alert.querySelector('p').textContent = `You entered: ${results.input}. Your message reversed is: ${results.reversed}`;
+                            // Display the input and reversed messages in the alert body
+                            alert.querySelector('p').innerHTML = `You entered: <b>${results.input}</b>.<br /> Your message reversed is: <b>${results.reversed}</b>`;
                         }
                         
                         function checkForPalindrome(input) {
-                            // take the user input and reverse it
-                            let lowerCaseInput = input.toLowerCase();
-                            lowerCaseInput = lowerCaseInput.replace(/[^a-z0-9]/gi, '');
+                            // The input is already processed (lowercased and non-alphanumeric characters removed)
+                            let reversed = reverseString(input);
                         
-                            let reversed = reverseString(lowerCaseInput);
+                            // Check if the reversed string is the same as the input
+                            let isPalindrome = reversed === input;
                         
-                            // see if the reversed string is the same as the input
-                            let isPalindrome = reversed == lowerCaseInput;
-                        
-                            // return a value indicating whether it is or is not a palindrome
+                            // Return a value indicating whether it is or is not a palindrome
                             return isPalindrome;
                         }
                         
                         function reverseString(inputString) {
                             let result = '';
                         
-                            // loop through the string from the end towards the beginning
+                            // Loop through the string from the end towards the beginning
                             for (let index = inputString.length - 1; index >= 0; index--) {
                                 result += inputString[index];
                             }
                         
                             return result;
                         }
+                        
                     </code>
                 </pre>
             </div>
 
             <!-- The code's explanation -->
             <div class="col-12 col-lg-4">
-                <p>The code is structured in 3 functions</p>
+                <p>The code is structured in 4 functions</p>
                 <h5><code>getValues()</code></h5>
                 <p>
-                    The <code>getValues</code> function gets the 
-                    text from the input element and displays it in a 
-                    Sweet Alert popup.
+                    The <code>getValues</code> function retrieves the user's input from a text box, processes it to remove non-alphanumeric characters, and converts it to lowercase. 
+                    It then checks if the processed input is a palindrome. If the input is too short, it displays an error message using Sweet Alert to prompt the user to enter more characters. 
+                    If the input is valid, it reverses the input string, determines if it is a palindrome, and then prepares the results for display.
+                </p>
+                <h5><code>displayResults()</code></h5>
+                <p>
+                    The <code>displayResults</code> function updates the HTML to indicate whether the user's input is a palindrome. 
+                    It modifies the alert's appearance based on the result, using a green alert for success and a red alert for failure. 
+                    The function also displays both the original and reversed input strings, formatting them in bold for emphasis. 
+                    This visual feedback helps the user quickly understand the result of their input.
+                </p>
+                <h5><code>checkForPalindrome()</code></h5>
+                <p>
+                    The <code>checkForPalindrome</code> function takes a processed string, removes any non-alphanumeric characters, and converts it to lowercase. 
+                    It then reverses this processed string and compares the reversed string to the original processed string. 
+                    If the two strings are identical, it returns a boolean value indicating that the input is a palindrome. 
+                    This function simplifies the main logic by isolating the palindrome check into a single, reusable component.
+                </p>
+                <h5><code>reverseString()</code></h5>
+                <p>
+                    The <code>reverseString</code> function reverses the input string by iterating from the end of the string to the beginning. 
+                    It constructs the reversed string character by character in a loop. 
+                    This function is essential for both displaying the reversed input to the user and checking for palindromes. 
+                    By handling the reversal separately, the code remains modular and easier to maintain.
                 </p>
             </div>
+            
         </div>
     </main>
 

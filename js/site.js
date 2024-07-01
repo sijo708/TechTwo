@@ -1,25 +1,33 @@
 function getValues() {
     let userMessage = document.getElementById('message').value;
 
-    if (userMessage.length < 2) {
+    // Process the input to remove non-alphanumeric characters and convert to lowercase
+    let processedMessage = userMessage.toLowerCase().replace(/[^a-z0-9]/gi, '');
+
+    // Check if the processed message is less than 2 characters
+    if (processedMessage.length < 2) {
         Swal.fire({
             icon: 'error',
             backdrop: false,
             title: 'Oops',
-            text: 'Please enter at least 2 characters to check for palindrome.'
+            text: 'Please enter at least 2 alphanumeric characters to check for palindrome.'
         });
 
         return;
     } else {
-        let isPalindrome = checkForPalindrome(userMessage);
+        // Check if the processed message is a palindrome
+        let isPalindrome = checkForPalindrome(processedMessage);
+        // Reverse the original user message for display
         let userMessageReversed = reverseString(userMessage);
 
+        // Create an object with the original and reversed messages and the palindrome result
         let results = {
             input: userMessage,
             reversed: userMessageReversed,
             isPalindrome: isPalindrome
         };
 
+        // Display the results
         displayResults(results);
     }
 }
@@ -29,37 +37,34 @@ function displayResults(results) {
     alert.classList.remove('invisible', 'alert-success', 'alert-danger');
 
     if (results.isPalindrome == true) {
-        // make the alert green
+        // Make the alert green for success
         alert.classList.add('alert-success');
-        // make the header say success
         alert.querySelector('h4').innerHTML = 'Well Done! You entered a palindrome';
     } else {
+        // Make the alert red for failure
         alert.classList.add('alert-danger');
         alert.querySelector('h4').innerHTML = 'Oh No! That is not a palindrome';
     }
 
-    // display the input & reverse in the body
-    alert.querySelector('p').textContent = `You entered: ${results.input}. Your message reversed is: ${results.reversed}`;
+    // Display the input and reversed messages in the alert body
+    alert.querySelector('p').innerHTML = `You entered: <b>${results.input}</b>.<br /> Your message reversed is: <b>${results.reversed}</b>`;
 }
 
 function checkForPalindrome(input) {
-    // take the user input and reverse it
-    let lowerCaseInput = input.toLowerCase();
-    lowerCaseInput = lowerCaseInput.replace(/[^a-z0-9]/gi, '');
+    // The input is already processed (lowercased and non-alphanumeric characters removed)
+    let reversed = reverseString(input);
 
-    let reversed = reverseString(lowerCaseInput);
+    // Check if the reversed string is the same as the input
+    let isPalindrome = reversed === input;
 
-    // see if the reversed string is the same as the input
-    let isPalindrome = reversed == lowerCaseInput;
-
-    // return a value indicating whether it is or is not a palindrome
+    // Return a value indicating whether it is or is not a palindrome
     return isPalindrome;
 }
 
 function reverseString(inputString) {
     let result = '';
 
-    // loop through the string from the end towards the beginning
+    // Loop through the string from the end towards the beginning
     for (let index = inputString.length - 1; index >= 0; index--) {
         result += inputString[index];
     }
